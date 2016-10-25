@@ -8,7 +8,13 @@
 
 import Foundation
 import  UIKit
-class HomePageViewController: UIViewController {
+class HomePageViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
+
+   
+
+    
+    @IBOutlet weak var mTableList: UITableView!
+    var items: [String] = ["We", "Heart", "Swift"]
     
     override func viewDidLoad() {
         self.title = "首页"
@@ -18,6 +24,15 @@ class HomePageViewController: UIViewController {
         // 消息按钮
         let mMsgButtonLeft = UIBarButtonItem(title: "消息", style: .plain, target: self, action: #selector(HomePageViewController.goSearchPage))
         self.navigationItem.leftBarButtonItem = mMsgButtonLeft
+        
+        mTableList.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        mTableList.dataSource = self
+        mTableList.delegate = self;
+        // 去掉多余的分割线
+        mTableList.tableFooterView = UIView()
+        // 去掉tabview 的分析左右间距
+        mTableList.separatorInset = UIEdgeInsets.zero
+        mTableList.layoutMargins = UIEdgeInsets.zero
         
     }
     
@@ -32,13 +47,34 @@ class HomePageViewController: UIViewController {
             self.automaticallyAdjustsScrollViewInsets = true
 
         }
-
         
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return self.items.count;
+    }
+     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = mTableList.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+        
+        cell.textLabel?.text = self.items[indexPath.row]
+        
+//        mTableList.separatorInset = UIEdgeInsets.zero
+//        mTableList.layoutMargins = UIEdgeInsets.zero
+
+        return cell
+    }
+   
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        mTableList?.deselectRow(at: indexPath, animated: true)
+        print("点击了item=\(indexPath.row)")
+      
     }
     
     func goSearchPage() {
