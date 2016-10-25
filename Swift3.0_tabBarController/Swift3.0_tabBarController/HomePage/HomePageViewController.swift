@@ -9,9 +9,6 @@
 import Foundation
 import  UIKit
 class HomePageViewController: UIViewController , UITableViewDelegate, UITableViewDataSource{
-
-   
-
     
     @IBOutlet weak var mTableList: UITableView!
     var items: [String] = ["We", "Heart", "Swift"]

@@ -16,17 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // 导航按钮文字颜色 字体大小
         let attributes =  [NSForegroundColorAttributeName: UIColor.gray,NSFontAttributeName: UIFont(name: "Heiti SC", size: 10.0)!]
         let attributesPressed =  [NSForegroundColorAttributeName: UIColor.darkGray,NSFontAttributeName: UIFont(name: "Heiti SC", size: 10.0)!]
 
         // 首页
+        // 第一步 获取ViewController 控制器，并且创建一个 导航控制器用来承载ViewController
         let mHomeViewController = UIStoryboard(name: "HomePage", bundle: nil).instantiateViewController(withIdentifier: "HomePage") as! HomePageViewController
         let mHomeNavController = UINavigationController(rootViewController: mHomeViewController)
+        // 第二步 创建一个导航item 并且设置导航按钮的点击icon切换 设置字体颜色 和大小
         let mHomeNormalImage = UIImage(named: "main_bottom_category_normal")?.withRenderingMode(.alwaysOriginal)
         let mHomeSelectedImage = UIImage(named: "main_bottom_category_hover")?.withRenderingMode(.alwaysOriginal)
         let mHomeTabBarItem = UITabBarItem(title: "精选", image: mHomeNormalImage, selectedImage: mHomeSelectedImage)
         mHomeTabBarItem.setTitleTextAttributes(attributes, for: .normal)
         mHomeTabBarItem.setTitleTextAttributes(attributesPressed, for: .focused)
+        // 第三步:将导航item 对象 赋值给导航控制器
         mHomeNavController.tabBarItem = mHomeTabBarItem
         
         
